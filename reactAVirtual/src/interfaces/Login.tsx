@@ -1,11 +1,13 @@
 import { Card } from 'primereact/card';
 import { FloatLabel } from 'primereact/floatlabel';
-import '../App.css'
 import { InputText } from 'primereact/inputtext';
 import { useState } from 'react';
 import { Password } from 'primereact/password';
 import { Button } from 'primereact/button';
 import {useAuthStore} from '../store/auth.store'
+
+
+
 function login() {
     const [pwd, setpwd] = useState("")
     const [usr, setusr] = useState("")
@@ -25,10 +27,8 @@ function login() {
                         <label for="userkey">CLAVE</label>
                     </FloatLabel>
                     <br />
-                    {authStatus}
-                    <div className='row'>
-                        <Button label="Ingresar" />
-                    </div>
+                    <Button className='margenesminimos' label="Ingresar" severity="success" />
+                    
                 </p>
             </Card>
         </div>
