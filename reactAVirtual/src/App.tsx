@@ -5,12 +5,13 @@ import 'primereact/resources/primereact.min.css'; //core css
 import 'primeicons/primeicons.css'; //icons
 import 'primeflex/primeflex.css'; 
 import './App.css'
+import { PrinciapalSide } from './interfaces';
 
 function  App() {
   return (
-    <main>
+    <>
       <Login/>
-    </main>
+    </>
   )
 }
 export default App
