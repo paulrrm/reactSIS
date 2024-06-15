@@ -22,17 +22,17 @@ function login() {
     
     return (
 
-        <div className="login">
+        <div className="login flex justify-center py-20 self-center">
             <Card title="INGRESO">
                 <p >
                     <FloatLabel>
                         <InputText id="username" value={usr} onChange={(e) => setusr(e.target.value)} />
-                        <label for="username">USUARIO</label>
+                        <label htmlFor="username">USUARIO</label>
                     </FloatLabel>
                     <br />
                     <FloatLabel>
                         <Password id="usernkey" value={pwd} onChange={(e) => setpwd(e.target.value)} />
-                        <label for="userkey">CLAVE</label>
+                        <label htmlFor="userkey">CLAVE</label>
                     </FloatLabel>
                     <br />
                     <Button onClick={() => login(usr,pwd)} className='margenboton' label="ENVIAR" severity="success" />
@@ -40,7 +40,7 @@ function login() {
                     {
                         (authStatus === 'authenticated')?
                         <div>Autenticado
-                            <div className='row'>
+                            <div className='flex justify-between'>
                             <Button className='margenboton' label="Ingresar" severity="success" />
                             <Button onClick={logout} className='margenboton' label="Salir" severity="success" />
                             </div>

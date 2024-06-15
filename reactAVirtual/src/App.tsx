@@ -1,18 +1,25 @@
-import { PrimeReactProvider, PrimeReactContext } from 'primereact/api';
-import Login from './interfaces/Login'
-import 'primereact/resources/themes/lara-light-indigo/theme.css'; //theme
-import 'primereact/resources/primereact.min.css'; //core css
+import {BrowserRouter,Route,Routes} from "react-router-dom"
+
 import 'primeicons/primeicons.css'; //icons
 import 'primeflex/primeflex.css'; 
-import './App.css'
-import { PrinciapalSide } from './interfaces';
-import NavBar from './components/NavBar';
 
+
+import NavBar from './components/NavBar';
+import Login from "./interfaces/Login";
+import Home from "./interfaces/Home";
 function  App() {
   return (
-    <>
-      <NavBar/>
-    </>
+    <BrowserRouter>
+      <NavBar />
+      
+      <Routes>
+        <Route path="/" element={<Home/>}/>
+        <Route path="/about" element={<h1>AAAAA</h1>}/>
+        <Route path="/contact" element={<h1>CCCCCC</h1>}/>
+        <Route path="/login" element={<Login />}/>
+        
+      </Routes>
+    </BrowserRouter>
   )
 }
 export default App
