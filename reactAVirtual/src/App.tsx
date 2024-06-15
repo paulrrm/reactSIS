@@ -6,11 +6,12 @@ import 'primeicons/primeicons.css'; //icons
 import 'primeflex/primeflex.css'; 
 import './App.css'
 import { PrinciapalSide } from './interfaces';
+import NavBar from './components/NavBar';
 
 function  App() {
   return (
     <>
-      <Login/>
+      <NavBar/>
     </>
   )
 }
