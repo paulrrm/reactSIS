@@ -78,5 +78,9 @@ export const routes: RouteProps[] = [
             },
         ]
     },
+    {
+        path:'*',
+        element:lazy(async () => await import("../interfaces/E404")),
+    },
 
 ]
