@@ -24,7 +24,7 @@ function login() {
 
         <div className="login flex justify-center py-20 self-center">
             <Card title="INGRESO">
-                <p >
+                
                     <FloatLabel>
                         <InputText id="username" value={usr} onChange={(e) => setusr(e.target.value)} />
                         <label htmlFor="username">USUARIO</label>
@@ -47,7 +47,7 @@ function login() {
                         </div>
                         :<div>No autenticado</div>
                     }
-                </p>
+                
             </Card>
         </div>
     )

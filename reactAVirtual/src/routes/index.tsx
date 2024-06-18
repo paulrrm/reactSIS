@@ -1,37 +1,82 @@
-import { Route } from "react-router-dom"
+import { Route, Outlet } from "react-router-dom"
 
-import { Fragment, lazy } from "react"
+import { Children, Fragment, lazy, LazyExoticComponent, Suspense } from "react"
 
+interface RouteProps {
+    path?: string;
+    element?: LazyExoticComponent<() => JSX.Element> | null;
+    layout?: LazyExoticComponent<(props: { children: React.ReactNode }) => JSX.Element> | null;
+    children?: RouteProps[];
+    guard?: LazyExoticComponent<(props: { children: React.ReactNode }) => JSX.Element> | null;
+}
 
-
-export const renderRoutes = () => {
-    return routes.map((route) => {
+export const renderRoutes = (routes: RouteProps[]) => {
+    return routes.map((route, index) => {
         const Layout = route.layout || Fragment;
-        const Component = route.elemnet || Fragment;
-        return <Route path={route.path} element={<Layout><Component /></Layout>} />
+        const Component = route.element || Fragment;
+        const Guard = route.guard || Fragment
+        return <Route
+            key={index}
+            path={route.path}
+            element={
+                <Suspense fallback={<h1>CARGANDO................</h1>}>
+                    <Guard>
+                        <Layout>
+                            {route.children ? <Outlet /> : <Component />}
+                        </Layout>
+                    </Guard>
+
+                </Suspense>
+            }>
+            {route.children && renderRoutes(route.children)}
+        </Route >
     })
 }
-export const routes = [
-   
+export const routes: RouteProps[] = [
     {
-        path: "/",
-        elemnet: lazy(async () => await import("../interfaces/Home")),
         layout: lazy(async () => await import("../layouts/AppLayout")),
+        children: [
+            {
+                path: "/",
+                element: lazy(async () => await import("../interfaces/Home")),
+
+            },
+            {
+                path: "contact",
+                element: lazy(async () => await import("../interfaces/Contact")),
+            },
+            {
+                path: "/about",
+                element: lazy(async () => await import("../interfaces/About")),
+
+            },
+            {
+                path: "/login",
+                element: lazy(async () => await import("../interfaces/Login")),
+
+            },
+        ]
     },
     {
-        path: "contact",
-        elemnet: lazy(async () => await import("../interfaces/Contact")),
-        layout: lazy(async () => await import("../layouts/AppLayout")),
+        path: "/principalv2",
+        element: lazy(async () => await import("../interfaces/Principal")),
+
+        guard: lazy(async () => await import("../guards/AuthGuard")),
     },
     {
-        path: "/about",
-        elemnet: lazy(async () => await import("../interfaces/About")),
-        layout: lazy(async () => await import("../layouts/AppLayout")),
-    },
-    {
-        path: "/login",
-        elemnet: lazy(async () => await import("../interfaces/Login")),
-        layout: lazy(async () => await import("../layouts/AppLayout")),
+        layout: lazy(async () => await import("../layouts/PrincipalLayout")),
+        children: [
+            {
+                path: "/principal",
+                element: lazy(async () => await import("../interfaces/Principal")),
+                guard: lazy(async () => await import("../guards/AuthGuard")),
+            },
+            {
+                path: "/edit",
+                element: lazy(async () => await import("../interfaces/EditUser")),
+                guard: lazy(async () => await import("../guards/AuthGuard")),
+            },
+        ]
     },
 
 ]
