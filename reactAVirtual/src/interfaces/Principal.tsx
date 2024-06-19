@@ -2,7 +2,7 @@
 
 const Principal = () => {
   return (
-    <div>
+    <div className=" h-screen flex-1">
       Principal
       
     </div>

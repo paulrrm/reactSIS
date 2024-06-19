@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { Password } from 'primereact/password';
 import { Button } from 'primereact/button';
 import {useAuthStore} from '../store/auth.store'
+import {useNavigate} from 'react-router-dom'
 
 
 
@@ -19,7 +20,11 @@ function login() {
         logout();
       }, 200);
     }, [])
-    
+    const navigate = useNavigate()
+    const handlerLink = () =>{
+        
+        navigate('/principal')
+    }
     return (
 
         <div className="login flex justify-center py-20 self-center">
@@ -41,7 +46,7 @@ function login() {
                         (authStatus === 'authenticated')?
                         <div>Autenticado
                             <div className='flex justify-between'>
-                            <Button className='margenboton' label="Ingresar" severity="success" />
+                            <Button className='margenboton' label="Ingresar" severity="success" onClick={()=>handlerLink()} />
                             <Button onClick={logout} className='margenboton' label="Salir" severity="success" />
                             </div>
                         </div>

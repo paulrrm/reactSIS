@@ -4,10 +4,10 @@ interface PrincipalLayoutProps{
 }
 const PrincipalLayout = ({children}:PrincipalLayoutProps) => {
   return (
-    <>
+    <div className="flex flex-row">
         <PrinciapalSide />
         {children}
-    </>
+    </div>
   )
 }
 

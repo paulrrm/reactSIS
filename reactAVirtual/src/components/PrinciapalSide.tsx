@@ -13,20 +13,12 @@ export default function PrinciapalSide() {
                 {
                     key: '0_1',
                     label: 'New',
-                    items: [
-                        {
-                            key: '0_1_0',
-                            label: 'Member',
-                        },
-                        {
-                            key: '0_1_1',
-                            label: 'Group',
-                        }
-                    ]
+                    url: '/principal'
                 },
                 {
                     key: '0_2',
-                    label: 'Search',
+                    label: 'Editar',
+                    url: '/editusr'
                 }
             ]
         },
@@ -66,6 +58,7 @@ export default function PrinciapalSide() {
                 {
                     key: '2_2',
                     label: 'This Week',
+                    
                 }
             ]
         }
@@ -99,9 +92,9 @@ export default function PrinciapalSide() {
     };
 
     return (
-        <div className="card flex flex-column align-items-center gap-3">
-            <Button type="button" label="Toggle All" text onClick={() => toggleAll()} />
-            <PanelMenu model={items} expandedKeys={expandedKeys} onExpandedKeysChange={setExpandedKeys} className="w-full md:w-20rem" multiple />
+        <div className="card flex flex-column w-1/6 gap-3 bg-gray-200 p-2 rounded-lg shadow-lg">
+            <Button className='text-left' type="button" label="Toggle All" text onClick={() => toggleAll()} />
+            <PanelMenu model={items} expandedKeys={expandedKeys} onExpandedKeysChange={setExpandedKeys} className="w-full " multiple />
         </div>
 
     )
