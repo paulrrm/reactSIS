@@ -6,8 +6,8 @@ import { Password } from 'primereact/password';
 import { Button } from 'primereact/button';
 import {useAuthStore} from '../store/auth.store'
 import {useNavigate} from 'react-router-dom'
-
-
+import type { ReqLoginResponse } from '../assets/types/reqlogin.intreface';
+import axios from 'axios';
 
 function login() {
     const [pwd, setpwd] = useState("")
@@ -25,6 +25,20 @@ function login() {
         
         navigate('/principal')
     }
+    const  loginspring =  async (usr:string,pwd:string) => {
+        try{
+            const {data}  = await axios.get<ReqLoginResponse>( `http://localhost:8091/avirtual/usuario/login/${usr}/${pwd}`)
+            console.log(data)
+            if(data.rol.nombre === 'admin'){
+                console.log("Admin")
+               login(usr , pwd);
+            }
+        }
+        catch(error){
+
+        }
+    }
+
     return (
 
         <div className="login flex justify-center py-20 self-center">
@@ -40,7 +54,7 @@ function login() {
                         <label htmlFor="userkey">CLAVE</label>
                     </FloatLabel>
                     <br />
-                    <Button onClick={() => login(usr,pwd)} className='margenboton' label="ENVIAR" severity="success" />
+                    <Button onClick={() => loginspring(usr,pwd)} className='margenboton' label="ENVIAR" severity="success" />
                     <h2>Estado:</h2>
                     {
                         (authStatus === 'authenticated')?
