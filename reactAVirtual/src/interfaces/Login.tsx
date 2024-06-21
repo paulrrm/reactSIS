@@ -32,6 +32,10 @@ function login() {
             if(data.rol.nombre === 'admin'){
                 console.log("Admin")
                login(usr , pwd);
+               const datosString = JSON.stringify(data);
+
+                // Guardar en localStorage bajo la clave 'usuario'
+                localStorage.setItem('usuarioAVirtual', datosString);
             }
         }
         catch(error){

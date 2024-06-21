@@ -12,7 +12,7 @@ export default function PrinciapalSide() {
             items: [
                 {
                     key: '0_1',
-                    label: 'New',
+                    label: 'Nuevo',
                     url: '/principal'
                 },
                 {

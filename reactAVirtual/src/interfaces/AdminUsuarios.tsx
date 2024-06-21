@@ -1,8 +1,12 @@
+import Usuarios from "../components/Usuarios"
 
 
 const AdminUsuarios = () => {
   return (
-    <div >AdminUsuarios</div>
+    <div>AdminUsuarios
+      <Usuarios/>
+
+    </div>
   )
 }
 

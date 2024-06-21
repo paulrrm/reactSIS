@@ -5,9 +5,10 @@ interface AuthGuardProps {
 }
 
 const AuthGuard = ({ children }: AuthGuardProps) => {
-    const authStatus = useAuthStore(state => state.status)
-   
-    if (authStatus !== 'authenticated') {
+  
+    const localAuth = localStorage.getItem('usuarioAVirtual');
+    console.log(localAuth)
+    if (localAuth === null || localAuth.length < 10) {
         return <Navigate to="/login" />
     }
     return <>{children}</>

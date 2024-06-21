@@ -73,7 +73,7 @@ export const routes: RouteProps[] = [
             },
             {
                 path: "/editusr",
-                element: lazy(async () => await import("../interfaces/EditUser")),
+                element: lazy(async () => await import("../interfaces/AdminUsuarios")),
                 guard: lazy(async () => await import("../guards/AuthGuard")),
             },
         ]
