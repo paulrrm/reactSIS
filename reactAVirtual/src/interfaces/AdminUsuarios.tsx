@@ -3,7 +3,7 @@ import Usuarios from "../components/Usuarios"
 
 const AdminUsuarios = () => {
   return (
-    <div>AdminUsuarios
+    <div className=" h-screen flex-1">AdminUsuarios
       <Usuarios/>
 
     </div>
