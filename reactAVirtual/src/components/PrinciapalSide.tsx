@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react'; 
+import {  useState } from 'react'; 
 import { PanelMenu } from 'primereact/panelmenu';
 import { Button } from 'primereact/button';
 
@@ -83,11 +83,11 @@ export default function PrinciapalSide() {
         setExpandedKeys({});
     };
 
-    const expandNode = (node) => {
+    const expandNode = (node:any) => {
         if (node.items && node.items.length) {
-            expandedKeys[node.key] = true;
+            // expandedKeys[node.key] = true;
 
-            node.items.forEach(expandNode);
+            // node.items.forEach(expandNode);
         }
     };
 
