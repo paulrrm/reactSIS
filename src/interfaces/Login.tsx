@@ -1,12 +1,13 @@
 import { Card } from 'primereact/card';
 import { FloatLabel } from 'primereact/floatlabel';
 import { InputText } from 'primereact/inputtext';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Password } from 'primereact/password';
 import { Button } from 'primereact/button';
 import {useAuthStore} from '../store/auth.store'
 import {useNavigate} from 'react-router-dom'
-import type { ReqLoginResponse } from '../assets/types/reqlogin.intreface';
+import type { ReqLoginResponse } from '../types/reqlogin.intreface';
+import { Toast, ToastMessage } from 'primereact/toast';
 import axios from 'axios';
 
 function login() {
@@ -15,6 +16,14 @@ function login() {
     const authStatus = useAuthStore(state => state.status)
     const login = useAuthStore(state => state.loginn)
     const logout = useAuthStore(state => state.logout)
+    const toast = useRef<Toast>(null);
+
+    const showErrorUsr = () => {
+        toast.current?.show({ severity: 'warn', summary: 'Info', detail: 'Message Content' });
+    };
+    const showErrorPermisos = () => {
+        toast.current?.show({ severity: 'error', summary: 'Info', detail: 'Message Content' });
+    };
     useEffect(() => {
       setTimeout(() => {
         logout();
@@ -27,7 +36,7 @@ function login() {
     }
     const  loginspring =  async (usr:string,pwd:string) => {
         try{
-            const {data}  = await axios.get<ReqLoginResponse>( `http://localhost:8091/avirtual/usuario/login/${usr}/${pwd}`)
+            const {data}  = await axios.get<ReqLoginResponse>( `http://192.168.0.108:8091/avirtual/usuario/login/${usr}/${pwd}`)
             console.log(data)
             if(data.rol.nombre === 'admin'){
                 console.log("Admin")
@@ -36,16 +45,24 @@ function login() {
 
                 // Guardar en localStorage bajo la clave 'usuario'
                 localStorage.setItem('usuarioAVirtual', datosString);
+                
             }
+            else
+            {
+                {showErrorPermisos()}
+                
+            }
+           
         }
         catch(error){
-
+            {showErrorUsr()}
         }
     }
 
     return (
 
         <div className="login flex justify-center py-20 self-center">
+            <Toast ref={toast} />
             <Card title="INGRESO">
                 
                     <FloatLabel>

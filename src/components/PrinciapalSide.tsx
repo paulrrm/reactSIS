@@ -24,20 +24,13 @@ export default function PrinciapalSide() {
         },
         {
             key: '1',
-            label: 'Tasks',
+            label: 'TaskRoless',
             icon: 'pi pi-server',
             items: [
                 {
                     key: '1_0',
-                    label: 'Add New',
-                },
-                {
-                    key: '1_1',
-                    label: 'Pending',
-                },
-                {
-                    key: '1_2',
-                    label: 'Overdue',
+                    label: 'Editar',
+                    url: '/editrol'
                 }
             ]
         },

@@ -1,17 +1,19 @@
 import { useState, useEffect } from 'react';
-import { DataTable } from 'primereact/datatable';
+import { DataTable   } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import axios from 'axios';
-import type { ReqLoginResponse } from '../assets/types/reqlogin.intreface';
+import type { ReqLoginResponse } from '../types/reqlogin.intreface';
 import { Button } from 'primereact/button';
 const Usuarios = () => {
     const [estudiantes, setEstudiantes] = useState<ReqLoginResponse[]>([]);
+    const [selectedEstudiante, setSelectedPEstudiante] = useState<ReqLoginResponse | null>(null);
+    const [rowClick, setRowClick] = useState<boolean>(true);
 
     useEffect(() => {
         // Función asincrónica para obtener datos de la API usando Axios
         const obtenerEstudiantes = async () => {
             try {
-                const response = await axios.get<ReqLoginResponse[]>('http://localhost:8091/avirtual/usuario'); // Reemplaza con la URL de tu API
+                const response = await axios.get<ReqLoginResponse[]>('http://192.168.0.108:8091/avirtual/usuario'); // Reemplaza con la URL de tu API
                 console.log(response)
                 const datos = response.data
                 setEstudiantes(datos)
@@ -74,13 +76,15 @@ const Usuarios = () => {
             <div className="flex-1 w-full bg-sky-300" >
                 <h1 className="text-3xl text-center py-4">LISTADO</h1>
                 <div className="card">
-                    <DataTable value={estudiantes} removableSort tableStyle={{ minWidth: '50rem' }}>
+                    <DataTable value={estudiantes} removableSort selectionMode={rowClick ? undefined : 'radiobutton'} selection={selectedEstudiante!}
+                onSelectionChange={(e) => setSelectedPEstudiante(e.value)} dataKey="idUsuario" tableStyle={{ minWidth: '50rem' }}>
+                         <Column selectionMode="single" headerStyle={{ width: '3rem' }}></Column>
                         <Column field="idUsuario" header="Id" sortable style={{ width: '25%' }}></Column>
                         <Column field="nombre" header="Nombre" sortable style={{ width: '25%' }}></Column>
                         <Column field="direccion" header="Direccion" sortable style={{ width: '25%' }}></Column>
                         <Column field="correo" header="Correo" sortable style={{ width: '25%' }}></Column>
                         <Column field="correo" header="Correo" sortable style={{ width: '25%' }}></Column>
-                        <Column headerStyle={{ width: '5rem', textAlign: 'center' }} bodyStyle={{ textAlign: 'center', overflow: 'visible' }} body={actionBodyTemplate} />
+                       
                     </DataTable>
                 </div>
             </div>
