@@ -81,7 +81,7 @@ const NewRol = () => {
     return (
         <div className="h-screen flex flex-col ">
             <div className="flex-1 bg-blue-200 w-full mx-auto px-4 py-8">
-                <h1 className="text-3xl text-center py-4">CREAR / EDITAR</h1>
+                <h1 className="text-3xl text-center py-4">CREAR ROL</h1>
                 <div className="max-w-md mx-auto mt-8 p-6 bg-gray-100 rounded-lg shadow-xl">
                     <form className="space-y-4"
                         onSubmit={handleSubmit}
