@@ -17,9 +17,9 @@ function login() {
     const login = useAuthStore(state => state.loginn)
     const logout = useAuthStore(state => state.logout)
     const toast = useRef<Toast>(null);
-
+    const [url, seturl] = useState("http://localhost:8091/avirtual/")
     const showErrorUsr = () => {
-        toast.current?.show({ severity: 'warn', summary: 'Info', detail: 'Message Content' });
+        toast.current?.show({ severity: 'warn', summary: 'Error', detail: 'USUARIO O CONTRASEnia' });
     };
     const showErrorPermisos = () => {
         toast.current?.show({ severity: 'error', summary: 'Info', detail: 'Message Content' });
@@ -35,8 +35,9 @@ function login() {
         navigate('/principal')
     }
     const  loginspring =  async (usr:string,pwd:string) => {
+        console.log(`${url}/login/${usr}/${pwd}`)
         try{
-            const {data}  = await axios.get<ReqLoginResponse>( `http://192.168.0.108:8091/avirtual/usuario/login/${usr}/${pwd}`)
+            const {data}  = await axios.get<ReqLoginResponse>( `${url}usuario/login/${usr}/${pwd}`)
             console.log(data)
             if(data.rol.nombre === 'admin'){
                 console.log("Admin")

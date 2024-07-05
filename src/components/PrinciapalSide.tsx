@@ -7,7 +7,7 @@ export default function PrinciapalSide() {
     const items = [
         {
             key: '0',
-            label: 'Users',
+            label: 'USUARIOS',
             icon: 'pi pi-users',
             items: [
                 {
@@ -24,11 +24,17 @@ export default function PrinciapalSide() {
         },
         {
             key: '1',
-            label: 'TaskRoless',
-            icon: 'pi pi-server',
+            label: 'ROLES',
+            icon: 'pi pi-flag',
             items: [
                 {
                     key: '1_0',
+                    label: 'Nuevo',
+                    url: '/newrol'
+                }
+                ,
+                {
+                    key: '1_1',
                     label: 'Editar',
                     url: '/editrol'
                 }
@@ -36,7 +42,7 @@ export default function PrinciapalSide() {
         },
         {
             key: '2',
-            label: 'Calendar',
+            label: 'PERIODO',
             icon: 'pi pi-calendar',
 
             items: [

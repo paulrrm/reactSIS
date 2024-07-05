@@ -4,16 +4,29 @@ import { Column } from 'primereact/column';
 import axios from 'axios';
 import type { ReqLoginResponse } from '../types/reqlogin.intreface';
 import { Button } from 'primereact/button';
+
 const Usuarios = () => {
     const [estudiantes, setEstudiantes] = useState<ReqLoginResponse[]>([]);
     const [selectedEstudiante, setSelectedPEstudiante] = useState<ReqLoginResponse | null>(null);
     const [rowClick, setRowClick] = useState<boolean>(true);
+    const [rols, setrols] = useState<ReqResRole[]>([])
+    const [url, seturl] = useState("http://localhost:8091/avirtual")
+    const obtenerRoles = async () => {
+        try {
+            const response = await axios.get<ReqResRole[]>(`${url}/rol`); // Reemplaza con la URL de tu API
+            console.log(response)
+            const datos = response.data
+            setrols(datos)
 
+        } catch (error) {
+            console.error('Error al obtener la lista de estudiantes:', error);
+        }
+    };
     useEffect(() => {
         // Función asincrónica para obtener datos de la API usando Axios
         const obtenerEstudiantes = async () => {
             try {
-                const response = await axios.get<ReqLoginResponse[]>('http://192.168.0.108:8091/avirtual/usuario'); // Reemplaza con la URL de tu API
+                const response = await axios.get<ReqLoginResponse[]>(`${url}/usuario`); // Reemplaza con la URL de tu API
                 console.log(response)
                 const datos = response.data
                 setEstudiantes(datos)
@@ -25,7 +38,11 @@ const Usuarios = () => {
 
         // Llamar a la función para obtener estudiantes al montar el componente
         obtenerEstudiantes();
-    }, []); // El segundo argumento [] asegura que useEffect se ejecute solo una vez al montar el componente
+        obtenerRoles();
+    }, []);
+    
+    
+    // El segundo argumento [] asegura que useEffect se ejecute solo una vez al montar el componente
     const actionBodyTemplate = () => {
         return <Button type="button" icon="pi pi-cog" rounded></Button>;
     };
@@ -59,9 +76,12 @@ const Usuarios = () => {
                 <div>
                     <label htmlFor="rol" className="block text-sm font-medium text-gray-700">Rol</label>
                     <select id="rol" name="rol" className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
-                        <option value="admin">Administrador</option>
-                        <option value="user">Usuario</option>
-                        <option value="guest">Invitado</option>
+                        <option key={0} value=" "> </option>
+                        {rols.map( rol =>(
+                            <option key={rol.idRol} value={rol.nombre}>{rol.nombre}</option>
+                        ))}
+                        
+                        
                     </select>
                 </div>
                 <div className="flex items-center justify-end">
@@ -83,8 +103,9 @@ const Usuarios = () => {
                         <Column field="nombre" header="Nombre" sortable style={{ width: '25%' }}></Column>
                         <Column field="direccion" header="Direccion" sortable style={{ width: '25%' }}></Column>
                         <Column field="correo" header="Correo" sortable style={{ width: '25%' }}></Column>
-                        <Column field="correo" header="Correo" sortable style={{ width: '25%' }}></Column>
-                       
+                        <Column field="telefono" header="Telefono" sortable style={{ width: '25%' }}></Column>
+                        <Column field="clave" header="Clave" sortable style={{ width: '25%' }}></Column>
+                        <Column field="rol.idrol" header="Rol" sortable style={{ width: '25%' }}></Column>
                     </DataTable>
                 </div>
             </div>

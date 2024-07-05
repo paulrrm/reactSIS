@@ -1,32 +1,16 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
-import { ReqResRole } from "../types/rol.interface";
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
-import axios from 'axios';
 
-const Rol = () => {
+const NewRol = () => {
+  
 
-    const [rols, setrols] = useState<ReqResRole[]>([])
-    const [selectRol, setselectRol] = useState<ReqResRole | null>(null)
-    const [rowClick, setRowClick] = useState<boolean>(true);
     const [nombrep, setnombre] = useState("")
     const [idp, setid] = useState("0")
     const [descripcionp, setdescripcion] = useState("")
     const [permisosp, setpermisos] = useState("")
     const [url, seturl] = useState("http://localhost:8091/avirtual/")
-    useEffect(() => {
-        obtenerRoles()
 
-    }, [])
-    useEffect(() => {
-        setnombre(selectRol?.nombre)
-        setid(selectRol?.idRol)
-        setdescripcion(selectRol?.descripcion)
-        setpermisos(selectRol?.permisos)
-
-
-
-    }, [selectRol])
+   
 
     const handleChangep = (e: React.ChangeEvent<HTMLSelectElement> | React.ChangeEvent<HTMLInputElement>) => {
 
@@ -129,19 +113,7 @@ const Rol = () => {
                 </div>
 
             </div>
-            <div className="flex-1 w-full bg-sky-300" >
-                <h1 className="text-3xl text-center py-4">LISTADO</h1>
-                <div className="card">
-                    <DataTable value={rols} removableSort selectionMode={rowClick ? undefined : 'radiobutton'} selection={selectRol!}
-                        onSelectionChange={(e) => setselectRol(e.value)} dataKey="idRol" tableStyle={{ minWidth: '50rem' }}>
-                        <Column selectionMode="single" headerStyle={{ width: '3rem' }}></Column>
-                        <Column field="idRol" header="ID" sortable style={{ width: '25%' }}></Column>
-                        <Column field="nombre" header="Nombre" sortable style={{ width: '25%' }}></Column>
-                        <Column field="descripcion" header="Descripcioon" sortable style={{ width: '25%' }}></Column>
-                        <Column field="persmisos" header="Permisos" sortable style={{ width: '25%' }}></Column>
-                    </DataTable>
-                </div>
-            </div>
+           
         </div>
 
 
@@ -150,4 +122,4 @@ const Rol = () => {
 };
 
 
-export default Rol
+export default NewRol
